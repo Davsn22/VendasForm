@@ -1,151 +1,70 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário Digital</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 20px;
-        }
-        .form-container {
-            max-width: 700px;
-            margin: auto;
-            background: white;
-            padding: 10px;
-	    border: 10px;
-            border-radius: 6px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-family: Arial, sans-serif;;
-            text-align: center;
-        }
-        label {
-            font-family: Arial, sans-serif;
-            font-size: 10px;
-            font-weight: bold;
-        }
-      input, select {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin: 2px 2px 4px 4px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 10px;
-            box-sizing: border-box;
-       
-        }
-        .row {
-            display: flex;
-            gap: 20px;
-        }
-        .column {
-            flex: 1;
-        }
-        .submit-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .submit-button:hover {
-            background-color: #45a049;
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+    <title>Formulário de Cadastro</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
 <body>
-    <div class="form-container">
-   <h1>DADOS DO CONSORCIADO</h1>
-        <form id="cadastro-form">
-            <div class="section">
-                
-                <label for="nome">Nome do Cliente:</label>
-                <input type="text" id="nome" name="nome" required>
+    <h1>Formulário de Cadastro</h1>
+    <form id="cadastro-form">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br>
 
-                <label for="email">E-mail do Cliente:</label>
-                <input type="email" id="email" name="email" required>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required><br>
 
-                <label for="telefone">Telefone(s) do Cliente:</label>
-                <input type="text" id="telefone" name="telefone" required>
+        <label for="telefone">Telefone:</label>
+        <input type="text" id="telefone" name="telefone" required><br>
 
-                <div class="row">
-                    <div class="column">
-                        <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" name="cpf" required>
-                    </div>
-                    <div class="column">
-                        <label for="data-nascimento">Data de Nascimento:</label>
-                        <input type="date" id="data-nascimento" name="data-nascimento" required>
-                    </div>
-                </div>
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" required><br>
 
-                <div class="row">
-                    <div class="column">
-                        <label for="rg">RG e Órgão Emissor:</label>
-                        <input type="text" id="rg" name="rg" required>
-                    </div>
-                    <div class="column">
-                        <label for="data-emissao">Data de Emissão:</label>
-                        <input type="date" id="data-emissao" name="data-emissao" required>
-                    </div>
-                </div>
+        <label for="data-nascimento">Data de Nascimento:</label>
+        <input type="date" id="data-nascimento" name="data-nascimento" required><br>
 
-                <div class="row">
-                    <div class="column">
-                        <label for="naturalidade">Naturalidade:</label>
-                        <input type="text" id="naturalidade" name="naturalidade" required>
-                    </div>
-                    <div class="column">
-                        <label for="nacionalidade">Nacionalidade:</label>
-                        <input type="text" id="nacionalidade" name="nacionalidade" required>
-                    </div>
-                </div>
+        <label for="rg">RG e Órgão Emissor:</label>
+        <input type="text" id="rg" name="rg" required><br>
 
-                <label for="estado-civil">Estado Civil:</label>
-                <input type="text" id="estado-civil" name="estado-civil" required>
+        <label for="data-emissao">Data de Emissão:</label>
+        <input type="date" id="data-emissao" name="data-emissao" required><br>
 
-                <label for="conjuge">Nome, CPF e Data de Nascimento do Cônjuge:</label>
-                <input type="text" id="conjuge" name="conjuge">
+        <label for="naturalidade">Naturalidade:</label>
+        <input type="text" id="naturalidade" name="naturalidade"><br>
 
-                <div class="row">
-                    <div class="column">
-                        <label for="rendimento-conjuge">Rendimento do cônjuge:</label>
-                        <input type="number" id="rendimento-conjuge" name="rendimento-conjuge">
-                    </div>
-                    <div class="column">
-                        <label for="rendimento-titular">Rendimento do titular:</label>
-                        <input type="number" id="rendimento-titular" name="rendimento-titular" required>
-                    </div>
-                </div>
+        <label for="nacionalidade">Nacionalidade:</label>
+        <input type="text" id="nacionalidade" name="nacionalidade"><br>
 
-                <label for="atividade">Atividade Desenvolvida do Titular:</label>
-                <input type="text" id="atividade" name="atividade" required>
+        <label for="estado-civil">Estado Civil:</label>
+        <input type="text" id="estado-civil" name="estado-civil"><br>
 
-                <label for="nome-mae">Nome da Mãe:</label>
-                <input type="text" id="nome-mae" name="nome-mae" required>
+        <label for="conjuge">Cônjuge:</label>
+        <input type="text" id="conjuge" name="conjuge"><br>
 
-                <label for="nome-pai">Nome do Pai:</label>
-                <input type="text" id="nome-pai" name="nome-pai">
-            </div>
+        <label for="rendimento-conjuge">Rendimento do Cônjuge:</label>
+        <input type="text" id="rendimento-conjuge" name="rendimento-conjuge"><br>
 
-            <!-- Adicionar outros campos aqui -->
+        <label for="rendimento-titular">Rendimento do Titular:</label>
+        <input type="text" id="rendimento-titular" name="rendimento-titular" required><br>
 
-            <button type="submit" class="submit-button">Enviar</button>
-        </form>
-    </div>
+        <label for="atividade">Atividade Desenvolvida:</label>
+        <input type="text" id="atividade" name="atividade" required><br>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+        <label for="nome-mae">Nome da Mãe:</label>
+        <input type="text" id="nome-mae" name="nome-mae" required><br>
+
+        <label for="nome-pai">Nome do Pai:</label>
+        <input type="text" id="nome-pai" name="nome-pai"><br><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
     <script>
         document.getElementById('cadastro-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
+            // Capturar os valores dos campos
             const nome = document.getElementById('nome').value;
             const email = document.getElementById('email').value;
             const telefone = document.getElementById('telefone').value;
@@ -163,11 +82,11 @@
             const nomeMae = document.getElementById('nome-mae').value;
             const nomePai = document.getElementById('nome-pai').value;
 
-            // Gerar PDF com as informações preenchidas
+            // Gerar PDF com jsPDF
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            doc.setFont('Helvetica', 'cursiva');
+            doc.setFont('Helvetica', 'normal');
             doc.setFontSize(12);
 
             doc.text('Formulário de Cadastro', 105, 20, { align: 'center' });
@@ -189,25 +108,22 @@
             doc.text(`Nome da Mãe: ${nomeMae}`, 20, 180);
             doc.text(`Nome do Pai: ${nomePai}`, 20, 190);
 
-        
+            // Converte o PDF para Blob
+            const pdfBlob = doc.output('blob');
 
-    // Converte o PDF para um Blob
-    const pdfBlob = doc.output('blob');
+            // Cria um link temporário para o PDF
+            const pdfURL = URL.createObjectURL(pdfBlob);
 
-    // Cria um link temporário para o PDF
-    const pdfURL = URL.createObjectURL(pdfBlob);
+            // Número do WhatsApp
+            const whatsappNumber = '559870002002';
 
-    // Número do WhatsApp
-    const whatsappNumber = '559870002002';
+            // Monta a mensagem com o link do PDF
+            const message = `Olá, segue o formulário preenchido: ${pdfURL}`;
+            const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-    // Monta a mensagem com o link do PDF
-    const message = `Olá, segue o formulário preenchido: ${pdfURL}`;
-    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-    // Abre o link do WhatsApp
-    window.open(whatsappLink, '_blank');
-});
-
+            // Abre o link do WhatsApp
+            window.open(whatsappLink, '_blank');
+        });
     </script>
 </body>
 </html>
