@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VendasForm</title>
+    <title>Formulário Digital</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -190,11 +189,24 @@
             doc.text(`Nome da Mãe: ${nomeMae}`, 20, 180);
             doc.text(`Nome do Pai: ${nomePai}`, 20, 190);
 
-            // Salvar PDF
-            doc.save(`Formulario_${nome.replace(/\s+/g, '_')}.pdf`);
+    // Converte o PDF para um blob
+    const pdfBlob = doc.output('blob');
 
-            alert('PDF gerado com sucesso!');
-        });
+    // Enviar para WhatsApp
+    const whatsappNumber = '559870002002';
+    const pdfFile = new File([pdfBlob], `Formulario_${nome.replace(/\s+/g, '_')}.pdf`, { type: 'application/pdf' });
+
+    // Criar um link para enviar no WhatsApp
+    const formData = new FormData();
+    formData.append('file', pdfFile);
+    
+    const pdfURL = URL.createObjectURL(pdfBlob); // Cria o link temporário para o PDF
+
+    // Abre o WhatsApp no navegador do celular
+    const whatsappLink = `https://wa.me/${whatsappNumber}?text=Segue%20o%20formulário%20preenchido:%20${encodeURIComponent(pdfURL)}`;
+    window.open(whatsappLink, '_blank');
+});
+
     </script>
 </body>
 </html>
