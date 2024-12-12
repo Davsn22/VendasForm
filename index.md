@@ -167,7 +167,7 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            doc.setFont('Helvetica', 'normal');
+            doc.setFont('Helvetica', 'cursiva');
             doc.setFontSize(12);
 
             doc.text('Formulário de Cadastro', 105, 20, { align: 'center' });
@@ -189,21 +189,22 @@
             doc.text(`Nome da Mãe: ${nomeMae}`, 20, 180);
             doc.text(`Nome do Pai: ${nomePai}`, 20, 190);
 
-    // Converte o PDF para um blob
+        
+
+    // Converte o PDF para um Blob
     const pdfBlob = doc.output('blob');
 
-    // Enviar para WhatsApp
+    // Cria um link temporário para o PDF
+    const pdfURL = URL.createObjectURL(pdfBlob);
+
+    // Número do WhatsApp
     const whatsappNumber = '559870002002';
-    const pdfFile = new File([pdfBlob], `Formulario_${nome.replace(/\s+/g, '_')}.pdf`, { type: 'application/pdf' });
 
-    // Criar um link para enviar no WhatsApp
-    const formData = new FormData();
-    formData.append('file', pdfFile);
-    
-    const pdfURL = URL.createObjectURL(pdfBlob); // Cria o link temporário para o PDF
+    // Monta a mensagem com o link do PDF
+    const message = `Olá, segue o formulário preenchido: ${pdfURL}`;
+    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-    // Abre o WhatsApp no navegador do celular
-    const whatsappLink = `https://wa.me/${whatsappNumber}?text=Segue%20o%20formulário%20preenchido:%20${encodeURIComponent(pdfURL)}`;
+    // Abre o link do WhatsApp
     window.open(whatsappLink, '_blank');
 });
 
