@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário Digital</title>
+    <title>VendasForm</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -143,34 +143,33 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
 
-            doc.setFont('Helvetica', 'normal');
-            doc.setFontSize(12);
-            doc.text('Formulário de Cadastro', 105, 10, { align: 'center' });
+            doc.setFont('Times', 'italic');
+            doc.setFontSize(14);
+            doc.text('Formulário de Pessoa Física', 105, 10, { align: 'center' });
 
-            const fields = [
-                { label: 'Nome do Cliente', value: document.getElementById('nome').value },
-                { label: 'E-mail do Cliente', value: document.getElementById('email').value },
-                { label: 'Telefone(s) do Cliente', value: document.getElementById('telefone').value },
-                { label: 'CPF', value: document.getElementById('cpf').value },
-                { label: 'Data de Nascimento', value: document.getElementById('data-nascimento').value },
-                { label: 'RG e Órgão Emissor', value: document.getElementById('rg').value },
-                { label: 'Data de Emissão', value: document.getElementById('data-emissao').value },
-                { label: 'Naturalidade', value: document.getElementById('naturalidade').value },
-                { label: 'Nacionalidade', value: document.getElementById('nacionalidade').value },
-                { label: 'Estado Civil', value: document.getElementById('estado-civil').value },
-                { label: 'Nome, CPF e Data de Nascimento do Cônjuge', value: document.getElementById('conjuge').value },
-                { label: 'Rendimento do cônjuge', value: document.getElementById('rendimento-conjuge').value },
-                { label: 'Rendimento do titular', value: document.getElementById('rendimento-titular').value },
-                { label: 'Atividade Desenvolvida do Titular', value: document.getElementById('atividade').value },
-                { label: 'Nome da Mãe', value: document.getElementById('nome-mae').value },
-                { label: 'Nome do Pai', value: document.getElementById('nome-pai').value }
-            ];
+	const fields = [
+    { label: '', value: document.getElementById('nome').value, x: 10, y: 20 },
+    { label: '', value: document.getElementById('email').value, x: 10, y: 30 },
+    { label: '', value: document.getElementById('telefone').value, x: 10, y: 40 },
+    { label: '', value: document.getElementById('cpf').value, x: 10, y: 50 },
+    { label: 'Data de Nascimento', value: document.getElementById('data-nascimento').value, x: 100, y: 50 },
+    { label: 'RG e Órgão Emissor', value: document.getElementById('rg').value, x: 10, y: 60 },
+    { label: 'Data de Emissão', value: document.getElementById('data-emissao').value, x: 100, y: 60 },
+    { label: 'Naturalidade', value: document.getElementById('naturalidade').value, x: 10, y: 70 },
+    { label: 'Nacionalidade', value: document.getElementById('nacionalidade').value, x: 100, y: 70 },
+    { label: 'Estado Civil', value: document.getElementById('estado-civil').value, x: 10, y: 80 },
+    { label: 'Nome, CPF e DN do Cônjuge', value: document.getElementById('conjuge').value, x: 10, y: 90},
+    { label: 'Rendimento do cônjuge', value: document.getElementById('rendimento-conjuge').value, x: 10, y: 100 },
+    { label: 'Rendimento do titular', value: document.getElementById('rendimento-titular').value, x: 10, y: 110 },
+    { label: 'Atividade Desenvolvida do Titular', value: document.getElementById('atividade').value, x: 10, y: 120 },
+    { label: 'Mãe', value: document.getElementById('nome-mae').value, x: 10, y: 130 },
+    { label: 'Pai', value: document.getElementById('nome-pai').value, x: 10, y: 140 }
+];
 
-            let y = 20;
-            fields.forEach(field => {
-                doc.text(`${field.label}: ${field.value}`, 10, y);
-                y += 10;
-            });
+fields.forEach(field => {
+    doc.text(`${field.label}: ${field.value}`, field.x, field.y);
+});
+
 
             const pdfBlob = doc.output('blob');
             const pdfURL = URL.createObjectURL(pdfBlob);
