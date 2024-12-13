@@ -1,4 +1,5 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -174,8 +175,13 @@
             const pdfBlob = doc.output('blob');
             const pdfURL = URL.createObjectURL(pdfBlob);
             const whatsappNumber = '559870002002';
-            const message = `Segue o formulário preenchido: ${pdfURL}`;
+            const message = `Segue o formulário preenchido em PDF.`;
             const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+            const a = document.createElement('a');
+            a.href = pdfURL;
+            a.download = `Formulario_${document.getElementById('nome').value}.pdf`;
+            a.click();
 
             window.open(whatsappLink, '_blank');
         });
