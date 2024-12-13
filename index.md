@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -62,7 +61,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="form-container">x
+    <div class="form-container">
    <h1>DADOS DO CONSORCIADO</h1>
         <form id="cadastro-form">
             <div class="section">
