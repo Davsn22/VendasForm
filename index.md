@@ -135,8 +135,9 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script>
-        document.getElementById('cadastro-form').addEventListener('submit', function(e) {
+	<script type="module">
+ 	   import base64Image from './base64Image.js';
+            document.getElementById('cadastro-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const { jsPDF } = window.jspdf;
@@ -158,9 +159,9 @@
     { label: 'Nacionalidade', value: document.getElementById('nacionalidade').value, x: 100, y: 70 },
     { label: 'Estado Civil', value: document.getElementById('estado-civil').value, x: 10, y: 80 },
     { label: 'Nome, CPF e DN do Cônjuge', value: document.getElementById('conjuge').value, x: 10, y: 90},
-    { label: 'Rendimento do cônjuge', value: document.getElementById('rendimento-conjuge').value, x: 10, y: 100 },
-    { label: 'Rendimento do titular', value: document.getElementById('rendimento-titular').value, x: 10, y: 110 },
-    { label: 'Atividade Desenvolvida do Titular', value: document.getElementById('atividade').value, x: 10, y: 120 },
+  { label: 'Rendimento do cônjuge', value: document.getElementById('rendimento-conjuge').value, x: 10, y: 100 },
+  { label: 'Rendimento do titular', value: document.getElementById('rendimento-titular').value, x: 10, y: 110 },
+  {label: 'Atividade Desenvolvida do Titular', value: document.getElementById('atividade').value, x: 10, y: 120},
     { label: 'Mãe', value: document.getElementById('nome-mae').value, x: 10, y: 130 },
     { label: 'Pai', value: document.getElementById('nome-pai').value, x: 10, y: 140 }
 ];
