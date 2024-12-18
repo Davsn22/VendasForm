@@ -74,7 +74,7 @@
             <div class="row">
                 <div class="column">
                     <label for="cpf">CPF:</label>
-                    <input type="text" id="cpf" name="cpf" required>
+		    <input type="text" id="cpf" maxlength="14" placeholder="000.000.000-00">
                 </div>
                 <div class="column">
                     <label for="data-nascimento">Data de Nascimento:</label>
@@ -135,77 +135,6 @@
     </div>
 <!-- Incluindo a biblioteca jsPDF via CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script type="module" src="./base64Image.js">
-	import { base64Image } from './js/base64Image.js';
-	import { jsPDF } from 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-    console.log(base64Image);
-	console.log(window.jspdf);  // Deve mostrar o objeto jsPDF ou undefined
-	
-   
-    // Agora você pode usar base64Image diretamente
-    document.getElementById('cadastro-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const jsPDF = window.jspdf.jsPDF;
-        const doc = new jsPDF();
-
-        doc.setFont('Times', 'italic');
-        doc.setFontSize(16);
-        doc.text('Formulário de Pessoa Física', 105, 10, { align: 'center' });
-
-        // Função para verificar e formatar a data
-        function formatarData(data) {
-            if (!data) return '';
-            const partes = data.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-            if (partes) {
-                return `${partes[3]}/${partes[2]}/${partes[1]}`;
-            }
-            return data;
-        }
-
-        const fields = [
-            { value: document.getElementById('nome').value, x: 10, y: 20 },
-            { value: document.getElementById('email').value, x: 10, y: 30 },
-            { value: document.getElementById('telefone').value, x: 10, y: 40 },
-            { value: document.getElementById('cpf').value, x: 10, y: 50 },
-            { value: formatarData(document.getElementById('data-nascimento').value), x: 120, y: 50 },
-            { value: document.getElementById('rg').value, x: 10, y: 60 },
-            { value: formatarData(document.getElementById('data-emissao').value), x: 120, y: 60 },
-            { value: document.getElementById('naturalidade').value, x: 10, y: 70 },
-            { value: document.getElementById('nacionalidade').value, x: 127, y: 70 },
-            { value: document.getElementById('estado-civil').value, x: 10, y: 80 },
-            { value: document.getElementById('conjuge').value, x: 10, y: 90 },
-            { value: document.getElementById('rendimento-conjuge').value, x: 10, y: 100 },
-            { value: document.getElementById('rendimento-titular').value, x: 10, y: 110 },
-            { value: document.getElementById('atividade').value, x: 10, y: 120 },
-            { value: document.getElementById('nome-mae').value, x: 10, y: 130 },
-            { value: document.getElementById('nome-pai').value, x: 10, y: 140 }
-        ];
-
-        // Carrega a imagem Base64 do arquivo externo
-        const img = new Image();
-        img.src = base64Image;
-
-        img.onload = function() {
-            // Adiciona a imagem no PDF
-            doc.addImage(img, 'PNG', 0, 0, 210, 297); // Ajusta tamanho A4
-
-            // Adiciona os campos no PDF
-            fields.forEach(field => {
-                doc.text(field.value, field.x, field.y);
-            });
-
-            // Gera e baixa o PDF
-            const pdfBlob = doc.output('blob');
-            const pdfURL = URL.createObjectURL(pdfBlob);
-
-            const a = document.createElement('a');
-            a.href = pdfURL;
-            a.download = `Formulario_${document.getElementById('nome').value}.pdf`;
-            a.click();
-        };
-    });
-</script>
 <script type="module">
     import { base64Image } from './base64Image.js';
     console.log(base64Image);
@@ -216,7 +145,7 @@
         const jsPDF = window.jspdf.jsPDF;
         const doc = new jsPDF();
 
-        doc.setFont("Helvetica", "bolditalic");
+        doc.setFont("Helvetica", "normal");
         doc.setFontSize(16);
 
         // Função para verificar e formatar a data
@@ -238,14 +167,14 @@
             { value: document.getElementById('rg').value.toUpperCase(), x: 37, y: 85 },
             { value: formatarData(document.getElementById('data-emissao').value), x: 133, y: 85 },
             { value: document.getElementById('naturalidade').value.toUpperCase(), x: 26, y: 92 },
-            { value: document.getElementById('nacionalidade').value.toUpperCase(), x: 120, y: 92 },
+            { value: document.getElementById('nacionalidade').value.toUpperCase(), x: 128, y: 92 },
             { value: document.getElementById('estado-civil').value.toUpperCase(), x: 26, y: 100 },
             { value: document.getElementById('conjuge').value.toUpperCase(), x: 71, y: 107 },
             { value: document.getElementById('rendimento-conjuge').value.toUpperCase(), x: 43, y: 114 },
             { value: document.getElementById('rendimento-titular').value.toUpperCase(), x: 140, y: 114},
             { value: document.getElementById('atividade').value.toUpperCase(), x: 56 , y: 121 },
-            { value: document.getElementById('nome-mae').value.toUpperCase(), x: 28, y: 128 },
-            { value: document.getElementById('nome-pai').value.toUpperCase(), x: 28, y: 135 }
+            { value: document.getElementById('nome-mae').value.toUpperCase(), x: 28, y: 129 },
+            { value: document.getElementById('nome-pai').value.toUpperCase(), x: 28, y: 136 }
         ];
 
         // Carrega a imagem Base64 do arquivo externo
