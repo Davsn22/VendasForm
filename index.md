@@ -172,7 +172,7 @@
             { value: document.getElementById('rg').value, x: 10, y: 60 },
             { value: formatarData(document.getElementById('data-emissao').value), x: 120, y: 60 },
             { value: document.getElementById('naturalidade').value, x: 10, y: 70 },
-            { value: document.getElementById('nacionalidade').value, x: 120, y: 70 },
+            { value: document.getElementById('nacionalidade').value, x: 127, y: 70 },
             { value: document.getElementById('estado-civil').value, x: 10, y: 80 },
             { value: document.getElementById('conjuge').value, x: 10, y: 90 },
             { value: document.getElementById('rendimento-conjuge').value, x: 10, y: 100 },
