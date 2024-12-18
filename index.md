@@ -133,56 +133,145 @@
             <button type="submit" class="submit-button">Enviar</button>
         </form>
     </div>
+<!-- Incluindo a biblioteca jsPDF via CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script type="module" src="./base64Image.js">
+	import { base64Image } from './js/base64Image.js';
+	import { jsPDF } from 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+    console.log(base64Image);
+	console.log(window.jspdf);  // Deve mostrar o objeto jsPDF ou undefined
+	
+   
+    // Agora você pode usar base64Image diretamente
+    document.getElementById('cadastro-form').addEventListener('submit', function(e) {
+        e.preventDefault();
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script>
-        document.getElementById('cadastro-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+        const jsPDF = window.jspdf.jsPDF;
+        const doc = new jsPDF();
 
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+        doc.setFont('Times', 'italic');
+        doc.setFontSize(14);
+        doc.text('Formulário de Pessoa Física', 105, 10, { align: 'center' });
 
-            doc.setFont('Times', 'italic');
-            doc.setFontSize(14);
-            doc.text('Formulário de Pessoa Física', 105, 10, { align: 'center' });
+        // Função para verificar e formatar a data
+        function formatarData(data) {
+            if (!data) return '';
+            const partes = data.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            if (partes) {
+                return `${partes[3]}/${partes[2]}/${partes[1]}`;
+            }
+            return data;
+        }
 
-	const fields = [
-    { label: '', value: document.getElementById('nome').value, x: 10, y: 20 },
-    { label: '', value: document.getElementById('email').value, x: 10, y: 30 },
-    { label: '', value: document.getElementById('telefone').value, x: 10, y: 40 },
-    { label: '', value: document.getElementById('cpf').value, x: 10, y: 50 },
-    { label: 'Data de Nascimento', value: document.getElementById('data-nascimento').value, x: 100, y: 50 },
-    { label: 'RG e Órgão Emissor', value: document.getElementById('rg').value, x: 10, y: 60 },
-    { label: 'Data de Emissão', value: document.getElementById('data-emissao').value, x: 100, y: 60 },
-    { label: 'Naturalidade', value: document.getElementById('naturalidade').value, x: 10, y: 70 },
-    { label: 'Nacionalidade', value: document.getElementById('nacionalidade').value, x: 100, y: 70 },
-    { label: 'Estado Civil', value: document.getElementById('estado-civil').value, x: 10, y: 80 },
-    { label: 'Nome, CPF e DN do Cônjuge', value: document.getElementById('conjuge').value, x: 10, y: 90},
-    { label: 'Rendimento do cônjuge', value: document.getElementById('rendimento-conjuge').value, x: 10, y: 100 },
-    { label: 'Rendimento do titular', value: document.getElementById('rendimento-titular').value, x: 10, y: 110 },
-    { label: 'Atividade Desenvolvida do Titular', value: document.getElementById('atividade').value, x: 10, y: 120 },
-    { label: 'Mãe', value: document.getElementById('nome-mae').value, x: 10, y: 130 },
-    { label: 'Pai', value: document.getElementById('nome-pai').value, x: 10, y: 140 }
-];
+        const fields = [
+            { value: document.getElementById('nome').value, x: 10, y: 20 },
+            { value: document.getElementById('email').value, x: 10, y: 30 },
+            { value: document.getElementById('telefone').value, x: 10, y: 40 },
+            { value: document.getElementById('cpf').value, x: 10, y: 50 },
+            { value: formatarData(document.getElementById('data-nascimento').value), x: 120, y: 50 },
+            { value: document.getElementById('rg').value, x: 10, y: 60 },
+            { value: formatarData(document.getElementById('data-emissao').value), x: 120, y: 60 },
+            { value: document.getElementById('naturalidade').value, x: 10, y: 70 },
+            { value: document.getElementById('nacionalidade').value, x: 120, y: 70 },
+            { value: document.getElementById('estado-civil').value, x: 10, y: 80 },
+            { value: document.getElementById('conjuge').value, x: 10, y: 90 },
+            { value: document.getElementById('rendimento-conjuge').value, x: 10, y: 100 },
+            { value: document.getElementById('rendimento-titular').value, x: 10, y: 110 },
+            { value: document.getElementById('atividade').value, x: 10, y: 120 },
+            { value: document.getElementById('nome-mae').value, x: 10, y: 130 },
+            { value: document.getElementById('nome-pai').value, x: 10, y: 140 }
+        ];
 
-fields.forEach(field => {
-    doc.text(`${field.label}: ${field.value}`, field.x, field.y);
-});
+        // Carrega a imagem Base64 do arquivo externo
+        const img = new Image();
+        img.src = base64Image;
 
+        img.onload = function() {
+            // Adiciona a imagem no PDF
+            doc.addImage(img, 'PNG', 0, 0, 210, 297); // Ajusta tamanho A4
 
+            // Adiciona os campos no PDF
+            fields.forEach(field => {
+                doc.text(field.value, field.x, field.y);
+            });
+
+            // Gera e baixa o PDF
             const pdfBlob = doc.output('blob');
             const pdfURL = URL.createObjectURL(pdfBlob);
-            const whatsappNumber = '559870002002';
-            const message = `Segue o formulário preenchido em PDF.`;
-            const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
             const a = document.createElement('a');
             a.href = pdfURL;
             a.download = `Formulario_${document.getElementById('nome').value}.pdf`;
             a.click();
+        };
+    });
+</script>
+<script type="module">
+    import { base64Image } from './base64Image.js';
+    console.log(base64Image);
 
-            window.open(whatsappLink, '_blank');
-        });
-    </script>
+    document.getElementById('cadastro-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const jsPDF = window.jspdf.jsPDF;
+        const doc = new jsPDF();
+
+        doc.setFont('Times', 'italic');
+        doc.setFontSize(14);
+        doc.text('Formulário de Pessoa Física', 105, 10, { align: 'center' });
+
+        // Função para verificar e formatar a data
+        function formatarData(data) {
+            if (!data) return '';
+            const partes = data.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            if (partes) {
+                return `${partes[3]}/${partes[2]}/${partes[1]}`;
+            }
+            return data;
+        }
+
+        const fields = [
+            { value: document.getElementById('nome').value, x: 33, y: 56 },
+            { value: document.getElementById('email').value, x: 33, y: 62 },
+            { value: document.getElementById('telefone').value, x: 40, y: 70 },
+            { value: document.getElementById('cpf').value, x: 15, y: 77 },
+            { value: formatarData(document.getElementById('data-nascimento').value), x: 136, y: 77 },
+            { value: document.getElementById('rg').value, x: 40, y: 85 },
+            { value: formatarData(document.getElementById('data-emissao').value), x: 133, y: 85 },
+            { value: document.getElementById('naturalidade').value, x: 30, y: 92 },
+            { value: document.getElementById('nacionalidade').value, x: 150, y: 92 },
+            { value: document.getElementById('estado-civil').value, x: 30, y: 100 },
+            { value: document.getElementById('conjuge').value, x: 72, y: 106 },
+            { value: document.getElementById('rendimento-conjuge').value, x: 43, y: 114 },
+            { value: document.getElementById('rendimento-titular').value, x: 140, y: 114},
+            { value: document.getElementById('atividade').value, x: 56 , y: 121 },
+            { value: document.getElementById('nome-mae').value, x: 40, y: 128 },
+            { value: document.getElementById('nome-pai').value, x: 40, y: 135 }
+        ];
+
+        // Carrega a imagem Base64 do arquivo externo
+        const img = new Image();
+        img.src = base64Image;
+
+        img.onload = function() {
+            // Adiciona a imagem no PDF
+            doc.addImage(img, 'PNG', 0, 0, 210, 297); // Ajusta tamanho A4
+
+            // Adiciona os campos no PDF
+            fields.forEach(field => {
+                doc.text(field.value, field.x, field.y);
+            });
+
+            // Gera e baixa o PDF
+            const pdfBlob = doc.output('blob');
+            const pdfURL = URL.createObjectURL(pdfBlob);
+
+            const a = document.createElement('a');
+            a.href = pdfURL;
+            a.download = `Formulario_${document.getElementById('nome').value}.pdf`;
+            a.click();
+        };
+    });
+</script>
 </body>
 </html>
